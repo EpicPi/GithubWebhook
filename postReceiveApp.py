@@ -18,7 +18,7 @@ def _get_header(key):
         abort(400, "Missing header: " + key)
 
 # @webhook.hook()        # Defines a handler for the 'push' event
-@app.route("/postrecieve")
+@app.route("/postreceive")
 def on_push(data):
     # subprocess.run(["sh"," ~/GithubWebhook/githubupdate.sh"])
     event_type = _get_header("X-Github-Event")
