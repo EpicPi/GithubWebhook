@@ -25,8 +25,10 @@ def on_push():
     if data is None:
         abort(400, "Request body must contain json")
     
+    try:
+        completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except: 
+        return completed.stderr, 400
 
-    completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"], stdout=subprocess.PIPE)
-
-    return completed.stdout, 204 if completed.returncode == 0 else 400
+    return completed.stdout, 204 
 
