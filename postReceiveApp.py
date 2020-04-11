@@ -3,7 +3,7 @@ from flask import Flask, abort, request
 import json
 
 app = Flask(__name__)  # Standard Flask app
-webhook = Webhook(app, endpoint="/postreceive")
+# webhook = Webhook(app, endpoint="/postreceive")
 
 @app.route("/")        # Standard Flask endpoint
 def hello_world():
@@ -18,14 +18,17 @@ def _get_header(key):
         abort(400, "Missing header: " + key)
 
 # @webhook.hook()        # Defines a handler for the 'push' event
-@app.route("/postreceive")
-def on_push(data):
-    # subprocess.run(["sh"," ~/GithubWebhook/githubupdate.sh"])
+@app.route("/postreceive", methods = ['POST'])
+def on_push():
     event_type = _get_header("X-Github-Event")
     content_type = _get_header("content-type")
+    
     data = request.get_json()
-
     if data is None:
         abort(400, "Request body must contain json")
-    return "hi", 204
+    
+
+    completed = subprocess.run(["sh"," ~/GithubWebhook/githubupdate.sh"])
+
+    return completed.stdout, 204 if completed.returncode == 0 else 400
 
