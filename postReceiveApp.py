@@ -1,4 +1,4 @@
-import os
+import subprocess
 from github_webhook import Webhook
 from flask import Flask
 
@@ -11,4 +11,5 @@ def hello_world():
 
 @webhook.hook()        # Defines a handler for the 'push' event
 def on_push(data):
-    print(os.popen("sh ~/githubupdate.sh").read())
+    # subprocess.run(["sh"," ~/GithubWebhook/githubupdate.sh"])
+    subprocess.run(["exit 1"])
