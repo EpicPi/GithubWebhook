@@ -2,10 +2,9 @@ import subprocess
 from flask import Flask, abort, request
 import json
 
-app = Flask(__name__)  # Standard Flask app
-# webhook = Webhook(app, endpoint="/postreceive")
+app = Flask(__name__)  
 
-@app.route("/")        # Standard Flask endpoint
+@app.route("/")
 def hello_world():
     return "Why are you here? We use github webhooks to automate deployment here."
 
@@ -17,7 +16,6 @@ def _get_header(key):
     except KeyError:
         abort(400, "Missing header: " + key)
 
-# @webhook.hook()        # Defines a handler for the 'push' event
 @app.route("/postreceive", methods = ['POST'])
 def on_push():
     event_type = _get_header("X-Github-Event")
@@ -29,3 +27,6 @@ def on_push():
     
 
     completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"],  capture_output=True)
+
+    return completed.stdout, 204 if completed.returncode == 0 else 400
+
