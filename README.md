@@ -1,7 +1,9 @@
 # GithubWebhook
 https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
 ```
+sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
 mkdir env
+apt-get install python3-venv
 python3 -m venv env/bin/activate
 source env
 pip install wheel
@@ -11,6 +13,7 @@ deactivate
 make systemd unit file
 
 ```
+sudo nano /etc/systemd/system/GithubWebhook.service
 [Unit]
 Description=uWSGI instance for github webhook autodeploy
 After=network.target
@@ -28,6 +31,7 @@ WantedBy=multi-user.target
 
 add new nginx conf
 ```
+/etc/ngingx/conf.d/webhook.conf
 server {
     listen 80;
     server_name webhook.trueshape.io;
