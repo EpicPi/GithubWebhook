@@ -1,6 +1,6 @@
 import subprocess
-from github_webhook import Webhook
-from flask import Flask
+from flask import Flask, abort, request
+import json
 
 app = Flask(__name__)  # Standard Flask app
 webhook = Webhook(app, endpoint="/postreceive")
@@ -9,7 +9,23 @@ webhook = Webhook(app, endpoint="/postreceive")
 def hello_world():
     return "Why are you here? We use github webhooks to automate deployment here."
 
-@webhook.hook()        # Defines a handler for the 'push' event
+def _get_header(key):
+    """Return message header"""
+
+    try:
+        return request.headers[key]
+    except KeyError:
+        abort(400, "Missing header: " + key)
+
+# @webhook.hook()        # Defines a handler for the 'push' event
+@app.route("/postrecieve")
 def on_push(data):
     # subprocess.run(["sh"," ~/GithubWebhook/githubupdate.sh"])
-    subprocess.run(["exit 1"])
+    event_type = _get_header("X-Github-Event")
+    content_type = _get_header("content-type")
+    data = request.get_json()
+
+    if data is None:
+        abort(400, "Request body must contain json")
+    return "hi", 204
+
