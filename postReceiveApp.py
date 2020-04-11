@@ -26,7 +26,7 @@ def on_push():
         abort(400, "Request body must contain json")
     
 
-    completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"],  capture_output=True)
+    completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"], stdout=subprocess.PIPE)
 
     return completed.stdout, 204 if completed.returncode == 0 else 400
 
