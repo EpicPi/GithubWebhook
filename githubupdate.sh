@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /var/www/base
-git pull
+/usr/bin/git pull
 cd /var/www/gyms
-git pull
+/usr/bin/git pull
