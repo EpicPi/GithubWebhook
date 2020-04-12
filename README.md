@@ -42,3 +42,4 @@ server {
     }
 }
 ```
+chmod 766 and chown $USER:www-data recursively on /var/www 
