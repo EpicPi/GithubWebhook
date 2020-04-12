@@ -9,8 +9,6 @@ def hello_world():
     return "Why are you here? We use github webhooks to automate deployment here."
 
 def _get_header(key):
-    """Return message header"""
-
     try:
         return request.headers[key]
     except KeyError:
@@ -25,7 +23,7 @@ def on_push():
     if data is None:
         abort(400, "Request body must contain json")
     
-    completed = subprocess.run(["/home/ubuntu/GithubWebhook/githubupdate.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    completed = subprocess.run(["sh","~/GithubWebhook/githubupdate.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if not completed.returncode == 0:
         abort(400, completed.stderr.decode('utf-8')) 
     
