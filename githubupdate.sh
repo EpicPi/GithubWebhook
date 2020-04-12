@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# eval `/usr/bin/ssh-agent` > /dev/null 
-# ssh-add ~/.ssh/id_rsa
+eval `/usr/bin/ssh-agent` > /dev/null 
+ssh-add ~/.ssh/id_rsa
 
 cd /var/www/base
 git pull origin/master
