@@ -1,9 +1,9 @@
 #!/bin/bash
 
-/usr/biin/ssh-agent -s
-/usr/bin/ssh-add/ ~/id_rsa
+# eval `/usr/bin/ssh-agent` > /dev/null 
+# ssh-add ~/.ssh/id_rsa
 
 cd /var/www/base
-/usr/bin/git pull
+git pull origin/master
 cd /var/www/gyms
-/usr/bin/git pull
+git pull origin/gym-landing-page

@@ -22,7 +22,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/GithubWebhook
-Environment="PATH=/home/ubuntu/GithubWebhook/env/bin"
+Environment="PATH=/home/ubuntu/GithubWebhook/env/bin" #make sure you add the output of echo $PATH here
 ExecStart=/home/ubuntu/GithubWebhook/env/bin/uwsgi --ini GithubWebhook.ini
 
 [Install]
